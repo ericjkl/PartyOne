@@ -7,8 +7,7 @@ import MoreScreen from './screens/MoreScreen';
 import PlanningScreen from './screens/PlanningScreen';
 import WhatsUpScreen from './screens/WhatsUpScreen';
 import GamesScreen from './screens/gamesScreen';
-import SpecialBottleSpinning from './screens/SpecialBottleSpinning';
-import ClassicBottleSpinning from './screens/ClassicBottleSpinning';
+import BottleSpinningScreen from './screens/BottleSpinningScreen';
 import ListScreen from './screens/ListScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import {
@@ -104,11 +103,6 @@ EventsStack.navigationOptions = {
   ),
 };
 
-const BottleSpinningSwitch = createSwitchNavigator({
-  SpecialBottleSpinning,
-  ClassicBottleSpinning,
-});
-
 const MoreStack = createStackNavigator({
   Links: {
     screen: MoreScreen,
@@ -123,7 +117,7 @@ const MoreStack = createStackNavigator({
     }),
   },
   GameBottleSpinning: {
-    screen: BottleSpinningSwitch,
+    screen: BottleSpinningScreen,
     navigationOptions: () => ({
       title: "Flaschendrehen             ",
     }),

@@ -15,10 +15,10 @@ export default class MoreScreen extends React.Component {
 					navigateTo='Games'
 				/>
 
-				<Card
+				{/*<Card
 					cardTitle='Musikplayer'
 					image={require('../assets/music.jpg')}
-				/>
+				/>*/}
 
 				<Card
 					cardTitle='Einstellungen'
@@ -27,9 +27,9 @@ export default class MoreScreen extends React.Component {
 					navigateTo='Settings'
 				/>
 
-				<Card
+				{/*<Card
 					cardTitle='Noch mehr'
-				/>
+				/>*/}
 			</ScrollView>
 		)
 	}

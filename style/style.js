@@ -137,6 +137,7 @@ const styles = StyleSheet.create({
 	},
 	listTitle: {
 		fontSize: 15,
+		maxWidth: "65%",
 	},
 	listDate: {
 		marginLeft: 5,

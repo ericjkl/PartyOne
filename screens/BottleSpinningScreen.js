@@ -3,9 +3,10 @@ import styles from "../style/style";
 import {Button, ScrollView, Text, TextInput, TouchableOpacity, View} from "react-native";
 import {MaterialIcons} from '@expo/vector-icons'
 
-export default class SpecialBottleSpinning extends React.Component {
+export default class BottleSpinningScreen extends React.Component {
 
 	stateDefault = {
+		specialScreenIsActive: true, //true: special screen active; false: classic screen active
 		didChoosePerson: false,
 		selectedPerson:  null,
 		didChooseTask:   false,
@@ -21,20 +22,36 @@ export default class SpecialBottleSpinning extends React.Component {
 	tasks = [
 		{
 			name:        "hug",
-			description: "Umarmt euch solange ihr wollt.",
+			description: "Freundschaftliche Umarmung.",
 			points:      15,
 		}, {
 			name:        "drink",
 			description: "Trinkt beide.",
 			points:      10,
 		}, {
-			name:        "bellyShot",
-			description: "Trinke einen Belly Shot von der genannten Person",
-			points:      50,
+			name:        "rockPaperScissors",
+			description: "Spielt eine Runde Schere-Stein-Papier. Der Verlierer muss trinken.",
+			points:      10,
 		}, {
-			name:        "irgendwas",
-			description: "mach irgendwas, mir fällt nichts mehr ein.",
+			name:        "choose",
+			description: "Wähle selbst eine Aufgabe aus.",
 			points:      100,
+		},{
+			name:        "europeanCities",
+			description: "Zählt nacheinander europäische Hauptstädte auf. Wem als erster keine mehr einfällt muss trinken.",
+			points:      25,
+		},{
+			name:        "question",
+			description: "Stelle eine Frage deiner Wahl. Dein Gegner muss die Frage wahrheitsgemäß beantworten oder trinken.",
+			points:      20,
+		},{
+			name:        "mixture",
+			description: "Du darfst deinem Gegner eine Mische deiner Wahl machen. Wenn dein Gegner nicht auf ex austrinken kann, müssen beide trinken.",
+			points:      40,
+		},{
+			name:        "message",
+			description: "Schicke eine Nachricht an einen Kontakt deines Gegners. Nachricht und Kontakt sind frei wählbar.",
+			points:      50,
 		},
 	];
 
@@ -97,12 +114,24 @@ export default class SpecialBottleSpinning extends React.Component {
 			<ScrollView>
 				<View style={styles.switchButton}>
 					<TouchableOpacity style={styles.center}
-									  onPress={() => this.props.navigation.navigate("SpecialBottleSpinning")}>
-						<Text style={[styles.center, styles.switchButtonActiveText]}>Special</Text>
+									  onPress={() => this.setState({specialScreenIsActive: true})}>
+						<Text style={
+							this.state.specialScreenIsActive
+								?
+							[styles.center, styles.switchButtonActiveText]
+								:
+							[styles.center, styles.switchButtonInactiveText]
+						}>Special</Text>
 					</TouchableOpacity>
 					<TouchableOpacity style={styles.center}
-									  onPress={() => this.props.navigation.navigate("ClassicBottleSpinning")}>
-						<Text style={[styles.center, styles.switchButtonInactiveText]}>Klassisch</Text>
+									  onPress={() => this.setState({specialScreenIsActive: false})}>
+						<Text style={
+							this.state.specialScreenIsActive
+								?
+								[styles.center, styles.switchButtonInactiveText]
+								:
+								[styles.center, styles.switchButtonActiveText]
+						}>Klassisch</Text>
 					</TouchableOpacity>
 				</View>
 				<View style={styles.simpleContainer}>
@@ -115,23 +144,25 @@ export default class SpecialBottleSpinning extends React.Component {
 					</View>
 				</View>
 				<View style={styles.simpleContainer}>
-					<Button onPress={() => this.spin(true)} title="Drehen"/>
+					<Button onPress={() => this.spin(this.state.specialScreenIsActive)} title="Drehen"/>
 				</View>
 				{this.state.personsIsEmpty ?
 					<Text style={[styles.redText, styles.center]}>Du musst zuerst einen Mitspieler hinzufügen!</Text>
 					:
 					<View>
 						<View style={[styles.simpleContainer, styles.center]}>
-							{this.state.didChoosePerson ? <Text>Deine Person ist:</Text> : null}
+							{this.state.didChoosePerson ? <Text>Dein Gegner ist:</Text> : null}
 							<Text>{this.state.selectedPerson}</Text>
 						</View>
-						<View style={[styles.simpleContainer, styles.center]}>
+						{this.state.specialScreenIsActive ?
+							<View style={[styles.simpleContainer, styles.center]}>
 							{this.state.didChooseTask ?
 								<Text>Deine Aufgabe ist:{"\n"}{this.state.selectedTask.description}{"\n\n"}Wenn du die Aufgabe
 									erfolgreich meisterst, bekommst du {this.state.selectedTask.points} Punkte!</Text>
 								:
 								null}
-						</View>
+						</View>:
+						null}
 					</View>
 				}
 

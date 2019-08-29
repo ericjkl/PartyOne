@@ -18,8 +18,7 @@ export default class PlanningScreen extends React.Component {
 			lists:          [],
 			modalOpen:      false,
 			errorMessage:   "",
-			isRefreshing:   false,
-			listsIsLoading: true,
+			isRefreshing:   true,
 		};
 	}
 
@@ -45,8 +44,7 @@ export default class PlanningScreen extends React.Component {
 	};
 
 	updateLists = () => {
-		console.log('updating');
-		this.setState({listsIsLoading: true});
+		this.setState({isRefreshing: true});
 		if (this.state.user === null) return;
 		let that = this;
 		const db = firebase.database();
@@ -68,7 +66,7 @@ export default class PlanningScreen extends React.Component {
 					});
 				}
 				console.log('child added');
-				that.setState({listsIsLoading: false});
+				that.setState({isRefreshing: false});
 			}).catch((error) => {
 				Alert.alert("Ooops...", error);
 			});
@@ -174,13 +172,6 @@ export default class PlanningScreen extends React.Component {
 		);
 	};
 
-	refreshLists = () => {
-		this.setState({
-			isRefreshing: true,
-		});
-		Alert.alert("test", "refreshed.");
-	};
-
 	render() {
 		return (
 			<ScrollView>
@@ -194,22 +185,13 @@ export default class PlanningScreen extends React.Component {
 								</View>
 							</TouchableOpacity>
 						</View>
-						{this.state.listsIsLoading
-							?
-							<View style={styles.smallContainer}>
-								<ActivityIndicator size='large'/>
-							</View>
-
-							:
-							null
-						}
 
 						<FlatList
 							data={this.state.lists}
 							renderItem={({item}) => this.renderListItems({item})}
-							ListEmptyComponent={<Empty isVisible={!this.state.listsIsLoading}/>}
+							ListEmptyComponent={<Empty isVisible={!this.state.isRefreshing}/>}
 							onRefresh={() => {
-								this.refreshLists();
+								this.updateLists();
 							}}
 							refreshing={this.state.isRefreshing}
 						/>

@@ -1,9 +1,9 @@
 {
-  "expoServerPort": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
+  "expoServerPort": 19000,
+  "expoServerNgrokUrl": "https://jy-tr8.eric-jkl.partyone.exp.direct",
+  "packagerNgrokUrl": "https://packager.jy-tr8.eric-jkl.partyone.exp.direct",
+  "ngrokPid": 6344,
   "devToolsPort": 19002,
-  "packagerPort": null,
-  "packagerPid": null
+  "packagerPort": 19001,
+  "packagerPid": 14940
 }
