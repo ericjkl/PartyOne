@@ -20,7 +20,7 @@ import firebase from "firebase";
 
 
 const config = {
-  apiKey:            "AIzaSyCSGIQfrebP0DZN_6zeA7AsrhfrmazjVLQ",
+  apiKey:            "***",
   authDomain:        "partyone-92039.firebaseapp.com",
   databaseURL:       "https://partyone-92039.firebaseio.com",
   projectId:         "partyone-92039",
